@@ -122,4 +122,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
 AUTH_USER_MODEL = 'acl_poc.User'
+AUTHENTICATION_BACKENDS = (
+    'django_acl_poc.auth_backends.BusinessBackend',
+)

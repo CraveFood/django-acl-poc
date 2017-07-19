@@ -5,6 +5,7 @@ from restless.preparers import FieldsPreparer
 
 from acl_poc.models import Business
 
+FEATURE_NOT_ALLOWED = 'User not allowed to access this feature'
 RESOURCE_NOT_ALLOWED = 'User not allowed to access this resource'
 
 
@@ -32,7 +33,7 @@ class BusinessResource(DjangoResource):
     def handle(self, endpoint, *args, **kwargs):
         if getattr(self, 'require_feature') and not \
                 waffle.flag_is_active(self.request, self.require_feature):
-            return self.build_error(Forbidden(RESOURCE_NOT_ALLOWED))
+            return self.build_error(Forbidden(FEATURE_NOT_ALLOWED))
         return super().handle(endpoint, *args, **kwargs)
 
     @require_permission('acl_poc.list_business')
